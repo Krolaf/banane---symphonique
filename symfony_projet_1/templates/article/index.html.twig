@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+</head>
+<body>
+    {% if pageType == 'list' %}
+        <h1>Liste des articles</h1>
+        <ul>
+            {% for article in data %}
+                <li>{{ article.title }} (Catégorie : {{ article.category }})</li>
+            {% endfor %}
+        </ul>
+    {% elseif pageType == 'detail' %}
+        <h1>{{ data.title }}</h1>
+        <p>{{ data.content }}</p>
+    {% elseif pageType == 'create' %}
+        <h1>Nouvel article</h1>
+        <p>Article créé avec les données suivantes :</p>
+        <pre>{{ data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+    {% elseif pageType == 'category' %}
+        <h1>Articles dans la catégorie : {{ category }}</h1>
+        <ul>
+            {% for article in data %}
+                <li>{{ article.title }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
