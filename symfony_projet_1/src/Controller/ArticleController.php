@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
+    
+
     #[Route('/blog', name: 'blog_list', methods: ['GET'])]
     public function list(): Response
     {

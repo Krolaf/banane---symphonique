@@ -4,6 +4,9 @@
     <title>Blog</title>
 </head>
 <body>
+    <!-- Affichage de la date du jour -->
+    <p>Nous sommes le : {{ "now"|date("d/m/Y H:i:s") }}</p>
+
     {% if pageType == 'list' %}
         <h1>Liste des articles</h1>
         <ul>
