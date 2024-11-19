@@ -2,49 +2,50 @@
 
 namespace App\Entity;
 
-use App\Repository\ProduitRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
-
-    #[ORM\Column(type: 'string', length: 255)]
     private string $name;
-
-    #[ORM\Column(type: 'float')]
     private float $price;
-
-    #[ORM\Column(type: 'text')]
     private string $description;
-
-    #[ORM\ManyToOne(targetEntity: Catalogue::class, inversedBy: 'produits')]
-    private ?Catalogue $catalogue = null;
+    private ?string $status = null; // new, featured, etc.
+    private int $stock = 0; // Nombre en stock
+    private array $tags = []; // Liste des tags associés
 
     /**
-     * Constructeur
+     * Constructeur pour initialiser les propriétés
      */
-    public function __construct(string $name, float $price, string $description, ?Catalogue $catalogue = null)
-    {
+    public function __construct(
+        string $name,
+        float $price,
+        string $description,
+        ?string $status = null,
+        int $stock = 0,
+        array $tags = []
+    ) {
         $this->name = $name;
         $this->price = $price;
         $this->description = $description;
-        $this->catalogue = $catalogue;
+        $this->status = $status;
+        $this->stock = $stock;
+        $this->tags = $tags;
     }
 
-    /**
-     * Getters et Setters
-     */
+    // Getters et Setters
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getName(): string
     {
         return $this->name;
     }
@@ -56,7 +57,7 @@ class Produit
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -68,7 +69,7 @@ class Produit
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -80,14 +81,54 @@ class Produit
         return $this;
     }
 
-    public function getCatalogue(): ?Catalogue
+    public function getStatus(): ?string
     {
-        return $this->catalogue;
+        return $this->status;
     }
 
-    public function setCatalogue(?Catalogue $catalogue): self
+    public function setStatus(?string $status): self
     {
-        $this->catalogue = $catalogue;
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStock(): int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(array $tags): self
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function addTag(string $tag): self
+    {
+        if (!in_array($tag, $this->tags)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(string $tag): self
+    {
+        $this->tags = array_filter($this->tags, fn($t) => $t !== $tag);
 
         return $this;
     }

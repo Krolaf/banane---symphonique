@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Catalogue des Vaisseaux</h2>
+    <div class="row">
+        {% for produit in produits %}
+            <div class="col-md-4 mb-4">
+                <div class="card 
+                    {% if loop.first %}first{% endif %}
+                    {% if loop.last %}last{% endif %}
+                    {% if loop.index is odd %}bg-dark text-light{% else %}bg-light{% endif %}
+                ">
+                    <div class="card-body">
+                        <!-- Titre et prix -->
+                        <h5 class="card-title">{{ produit.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ produit.price|number_format(2, '.', ',') }} crédits
+                        </h6>
+                        
+                        <!-- Description -->
+                        <p class="card-text">{{ produit.description }}</p>
+                        
+                        <!-- Badges -->
+                        <div>
+                            {% if produit.status == 'new' %}
+                                <span class="badge bg-success">Nouveau</span>
+                            {% endif %}
+                            {% if produit.status == 'featured' %}
+                                <span class="badge bg-primary">Populaire</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Stock -->
+                        <p class="mt-2">
+                            {% if produit.stock > 0 %}
+                                <span class="text-success">En stock</span>
+                            {% else %}
+                                <span class="text-danger">Rupture de stock</span>
+                            {% endif %}
+                        </p>
+
+                        <!-- Tags -->
+                        <p>
+                            Tags :
+                            {% for tag in produit.tags %}
+                                <span class="badge bg-secondary">{{ tag }}</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

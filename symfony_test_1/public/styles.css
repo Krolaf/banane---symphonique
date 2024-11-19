@@ -220,3 +220,57 @@ body {
         opacity: 0;
     }
 }
+
+
+.card {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00d8ff;
+    transition: all 0.3s ease-in-out;
+    margin: 1.2vw;
+}
+
+.card:hover {
+    border: 2px solid #00d8ff; /* Couleur néon */
+    box-shadow: 0 0 20px #00d8ff, 0 0 40px #00d8ff, 0 0 60px #00d8ff;
+}
+
+
+
+/* Animation de rotation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Couleurs de bordure pour la classe first (trou noir) */
+.card.first {
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+.card.first:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, #001b33 70%, transparent 90%);
+    animation: spin 5s linear infinite;
+    z-index: -1;
+    border-radius: 50%;
+}
+
+/* Dernière carte (effet spécial pour last) */
+.card.last {
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+}
+
