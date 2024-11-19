@@ -1,10 +1,9 @@
 /* Style général pour le site */
 body {
-    font-family: 'Orbitron', sans-serif; /* Police futuriste */
+    font-family: 'Orbitron', sans-serif;
     margin: 0;
     padding: 0;
     color: #00d8ff; /* Bleu lumineux */
-    background: #000000; /* Noir profond */
     background: radial-gradient(circle, #000000 70%, #0a0a0a 100%);
     overflow-x: hidden;
 }
@@ -12,11 +11,9 @@ body {
 /* Effet "hyperespace" */
 body:before {
     content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: sticky;
+    width: 100vw;
+    height: 100vh;
     background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 60%, transparent 100%);
     z-index: -1;
     animation: stars 2s infinite linear;
@@ -122,26 +119,15 @@ body.about main {
     border: 2px solid #00d8ff;
 }
 
-
-
-/* Styles généraux */
-body {
-    margin: 0;
-    padding: 0;  /* Empêche le défilement */
-    background: black;
-    color: white;
-    font-family: 'Orbitron', sans-serif;
-}
-
-/* Animation de l'hyperespace */
+/* Hyperespace */
 #hyperspace {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #000000, #0a0a0a, #000000); /* Effet de profondeur */   
-    z-index: -1; /* Derrière tout le contenu */
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    perspective: 500px; /* Donne un effet 3D */
 }
 
 /* Étoiles en mouvement */
@@ -165,25 +151,6 @@ body {
         opacity: 0;
     }
 }
-/* Style général pour le corps */
-body {
-    margin: 0;
-    padding: 0;  /* Empêche le défilement */
-    background: black;
-    color: white;
-    font-family: 'Orbitron', sans-serif;
-}
-
-/* Effet de l'hyperespace */
-#hyperspace {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;   
-    z-index: -1;
-    perspective: 500px; /* Donne un effet 3D */
-}
 
 /* Lignes lumineuses */
 .trail {
@@ -195,7 +162,6 @@ body {
     background: linear-gradient(to bottom, transparent, #00d8ff, #00d8ff, transparent);
     transform-origin: center;
     animation: move 1s linear infinite, fade 1s ease-in infinite;
-
     opacity: 0;
 }
 
@@ -221,7 +187,7 @@ body {
     }
 }
 
-
+/* Cartes */
 .card {
     position: relative;
     overflow: hidden;
@@ -235,18 +201,6 @@ body {
 .card:hover {
     border: 2px solid #00d8ff; /* Couleur néon */
     box-shadow: 0 0 20px #00d8ff, 0 0 40px #00d8ff, 0 0 60px #00d8ff;
-}
-
-
-
-/* Animation de rotation */
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 /* Couleurs de bordure pour la classe first (trou noir) */
@@ -274,3 +228,30 @@ body {
     box-shadow: 0 0 15px #00ff00;
 }
 
+/* Animation de rotation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animation pour déplacer la page vers le bas */
+@keyframes slideDown {
+    from {
+        transform: translateY(0); /* Position initiale */
+    }
+    to {
+        transform: translateY(-100vh); /* Position finale */
+    }
+}
+
+/* Applique l'animation à un conteneur */
+.scroll-animation {
+    animation: slideDown 5s ease-in-out forwards;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
